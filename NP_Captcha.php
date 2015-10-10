@@ -550,7 +550,7 @@ class NP_Captcha extends NucleusPlugin {
 		}
 
 		header('Content-Type: image/jpeg');
-		@imagejpeg($image, '', $this->jpeg_quality);
+		@imagejpeg($image, null, $this->jpeg_quality);
 		@imagedestroy($image);
 
 	}
@@ -861,7 +861,7 @@ class NP_Captcha extends NucleusPlugin {
 
 		// dump image
 		header('Content-Type: image/jpeg');
-		@imagejpeg($image, '', 90);
+		@imagejpeg($image, null, 90);
 		@imagedestroy($image);
 		
 		exit;
