@@ -355,8 +355,7 @@ class NP_Captcha extends NucleusPlugin {
 		while (!$ok)
 		{
 			// generate a random token
-			srand((double)microtime()*1000000);
-			$key = md5(uniqid(rand(), true));
+			$key = md5(uniqid(mt_rand(), true));
 			
 			// add in database as non-active
 			$query = 'INSERT INTO ' . $this->table . ' (ckey, time, solution, active) ';
@@ -495,18 +494,13 @@ class NP_Captcha extends NucleusPlugin {
 			if($this->debug) echo "\n<br>-Captcha-Debug: Fill background with noise: (".$this->nb_noise.")";
 			for($i=0; $i < $this->nb_noise; $i++)
 			{
-				srand((double)microtime()*1000000);
-				$size	= intval(rand((int)($this->minsize / 2.3), (int)($this->maxsize / 1.7)));
-				srand((double)microtime()*1000000);
-				$angle	= intval(rand(0, 360));
-				srand((double)microtime()*1000000);
-				$x		= intval(rand(0, $this->lx));
-				srand((double)microtime()*1000000);
-				$y		= intval(rand(0, (int)($this->ly - ($size / 5))));
+				$size	= intval(mt_rand((int)($this->minsize / 2.3), (int)($this->maxsize / 1.7)));
+				$angle	= intval(mt_rand(0, 360));
+				$x		= intval(mt_rand(0, $this->lx));
+				$y		= intval(mt_rand(0, (int)($this->ly - ($size / 5))));
 				$this->_random_color(160, 224);
 				$color	= call_user_func($func_color, $image, $this->r, $this->g, $this->b);
-				srand((double)microtime()*1000000);
-				$text	= chr(intval(rand(45,250)));
+				$text	= chr(intval(mt_rand(45,250)));
 				@imagettftext($image, $size, $angle, $x, $y, $color, $this->_change_TTF(), $text);
 			}
 		}
@@ -531,15 +525,12 @@ class NP_Captcha extends NucleusPlugin {
 
 		// generate Text
 		if($this->debug) echo "\n<br>-Captcha-Debug: Fill forground with chars and shadows: (".$this->chars.")";
-		for($i=0, $x = intval(rand($this->minsize,$this->maxsize)); $i < $this->chars; $i++)
+		for($i=0, $x = intval(mt_rand($this->minsize,$this->maxsize)); $i < $this->chars; $i++)
 		{
 			$text	= strtoupper(substr($private_key, $i, 1));
-			srand((double)microtime()*1000000);
-			$angle	= intval(rand(($this->maxrotation * -1), $this->maxrotation));
-			srand((double)microtime()*1000000);
-			$size	= intval(rand($this->minsize, $this->maxsize));
-			srand((double)microtime()*1000000);
-			$y		= intval(rand((int)($size * 1.5), (int)($this->ly - ($size / 7))));
+			$angle	= intval(mt_rand(($this->maxrotation * -1), $this->maxrotation));
+			$size	= intval(mt_rand($this->minsize, $this->maxsize));
+			$y		= intval(mt_rand((int)($size * 1.5), (int)($this->ly - ($size / 7))));
 			$this->_random_color(0, 127);
 			$color	=  call_user_func($func_color, $image, $this->r, $this->g, $this->b);
 			$this->_random_color(0, 127);
@@ -795,12 +786,9 @@ class NP_Captcha extends NucleusPlugin {
 	/** @private **/
 	function _random_color($min,$max)
 	{
-		srand((double)microtime() * 1000000);
-		$this->r = intval(rand($min,$max));
-		srand((double)microtime() * 1000000);
-		$this->g = intval(rand($min,$max));
-		srand((double)microtime() * 1000000);
-		$this->b = intval(rand($min,$max));
+		$this->r = intval(mt_rand($min,$max));
+		$this->g = intval(mt_rand($min,$max));
+		$this->b = intval(mt_rand($min,$max));
 	}
 
 	/** @private **/
@@ -830,8 +818,7 @@ class NP_Captcha extends NucleusPlugin {
 
 		$private_key = '';
 		for($i = 0; $i < $this->chars / 2; $i++){
-			srand((double)microtime()*1000000);
-			$private_key = $letters[rand(0, $num_letters - 1)] . $private_key . $numbers[rand(0, $num_numbers - 1)];
+			$private_key = $letters[mt_rand(0, $num_letters - 1)] . $private_key . $numbers[mt_rand(0, $num_numbers - 1)];
 		}
 		return strtoupper(substr($private_key, 0, $this->chars));
 	}
