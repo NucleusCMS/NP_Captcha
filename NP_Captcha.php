@@ -240,7 +240,7 @@ class NP_Captcha extends NucleusPlugin {
 		
 		$aVars = array(
 			'imgHtml' => $this->generateImgHtml($key),
-			'key' => htmlspecialchars($key)
+			'key' => htmlspecialchars($key,ENT_QUOTES,_CHARSET)
 		);
 		
 		switch ($data['type'])
@@ -325,7 +325,7 @@ class NP_Captcha extends NucleusPlugin {
 		$imgUrl  = $this->generateImgUrl($key, $width, $height);
 		if ($width == -1)		$width = $this->lx;
 		if ($height == -1)		$height = $this->ly;
-		$imgHtml = '<img src="' . htmlspecialchars($imgUrl) . '"  width="' . intval($width). '" height="' . intval($height) . ' " alt="captcha image, to tell computers and humans apart." title="Please enter the string of characters appearing in this picture in the input field below." />';
+		$imgHtml = '<img src="' . htmlspecialchars($imgUrl,ENT_QUOTES,_CHARSET) . '"  width="' . intval($width). '" height="' . intval($height) . ' " alt="captcha image, to tell computers and humans apart." title="Please enter the string of characters appearing in this picture in the input field below." />';
 		return $imgHtml;
 	}
 	
