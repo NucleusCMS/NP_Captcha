@@ -751,7 +751,8 @@ class NP_Captcha extends NucleusPlugin {
 	/** @private **/
 	function _existsKey($key)
 	{
-		return (quickQuery('SELECT COUNT(*) AS result FROM ' . $this->table . ' WHERE ckey=\'' . addslashes($key) . '\'') == 1);
+		$sql = sprintf("SELECT COUNT(*) AS result FROM %s WHERE ckey='%s'", $this->table, addslashes($key));
+		return (quickQuery($sql) == 1);
 	}
 
 	/** @private **/
