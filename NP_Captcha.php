@@ -388,7 +388,7 @@ class NP_Captcha extends NucleusPlugin {
 		// get info
 		$res = sql_query('SELECT * FROM ' . $this->table . ' WHERE ckey=\'' . addslashes($key) . '\'');
 		if ($res) 
-			$o = mysql_fetch_object($res);
+			$o = sql_fetch_object($res);
 			
 		// delete captcha key (we've got the info)
 		$this->_deleteKey($key);
