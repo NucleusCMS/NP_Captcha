@@ -838,19 +838,7 @@ class NP_Captcha extends NucleusPlugin {
 	/** @private **/
 	function _error_img($w, $h, $error)
 	{
-		// create Image and set the apropriate function depending on GD-Version & websafecolor-value
-		if($this->gd_version >= 2 && !$this->websafecolors)
-		{
-			$func_createImg = 'imagecreatetruecolor';
-			$func_color = 'imagecolorallocate';
-		}
-		else
-		{
-			$func_createImg = 'imageCreate';
-			$func_color = 'imagecolorclosest';
-		}
-		$image = call_user_func($func_createImg, $this->lx, $this->ly);
-
+		$image = call_user_func(imagecreatetruecolor, $this->lx, $this->ly);
 		// fill background in red
 		$back =  @imagecolorallocate($image, 255, 128, 128);
 		@imagefilledrectangle($image,0,0,$w,$h,$back);
