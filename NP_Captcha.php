@@ -870,4 +870,3 @@ class NP_Captcha extends NucleusPlugin {
 	
 
 }
-?>
